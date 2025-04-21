@@ -1,6 +1,7 @@
 const flipSound = document.getElementById('flipSound');
 const matchSound = document.getElementById('matchSound');
 const wrongSound = document.getElementById('wrongSound');
+const winSound = document.getElementById('winSound');
 
 
 
@@ -77,6 +78,8 @@ function createCard(item) {
         matchSound.currentTime = 0;
          matchSound.play();
         if (matchedPairs === totalPairs) {
+          winSound.currentTime = 0;
+          winSound.play(); // 🔊 Play win sound!
           document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
           document.getElementById('winModal').classList.remove('hidden');
         }
