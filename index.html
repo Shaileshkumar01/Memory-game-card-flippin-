@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
  
@@ -35,19 +36,12 @@
           <button onclick="restartGame()">Play Again 🔁</button>
         </div>
       </div>
-      
+      <button onclick="document.getElementById('flipSound').play()">Test Flip Sound</button>
+
+      <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
+      <audio id="matchSound" src="sounds/match.mp3" preload="auto"></audio>
+      <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
+        
     <script src="script.js"></script>
-    <script src="three.r134.min.js"></script>
-<script src="vanta.halo.min.js"></script>
-    <script>
-        VANTA.HALO({
-          el: "#your-element-selector",
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00
-        })
-        </script>
 </body>
 </html>

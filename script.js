@@ -1,3 +1,9 @@
+const flipSound = document.getElementById('flipSound');
+const matchSound = document.getElementById('matchSound');
+const wrongSound = document.getElementById('wrongSound');
+
+
+
 const cardsArray = ['🍕','🍔','🍟','🌮','🍩','🍿','🥨','🍪'];
 let gameGrid = [...cardsArray, ...cardsArray];
 gameGrid.sort(() => 0.5 - Math.random());
@@ -55,6 +61,8 @@ function createCard(item) {
     if (lockBoard || card.classList.contains('flipped')) return;
 
     card.classList.add('flipped');
+    flipSound.currentTime = 0;
+    flipSound.play();
 
     if (!firstCard) {
       firstCard = card;
@@ -66,7 +74,8 @@ function createCard(item) {
 
       if (firstCard.dataset.item === secondCard.dataset.item) {
         matchedPairs++;
-
+        matchSound.currentTime = 0;
+         matchSound.play();
         if (matchedPairs === totalPairs) {
           document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
           document.getElementById('winModal').classList.remove('hidden');
@@ -74,6 +83,8 @@ function createCard(item) {
 
         resetCards();
       } else {
+        wrongSound.currentTime = 0;
+        wrongSound.play();
         setTimeout(() => {
           firstCard.classList.remove('flipped');
           secondCard.classList.remove('flipped');
@@ -97,3 +108,41 @@ function restartGame() {
 
 // Initial stage
 setDifficulty(8); // Default: Medium
+
+
+
+// sound effect 
+card.classList.add('flipped');
+flipSound.currentTime = 0;
+flipSound.play();
+
+if (!firstCard) {
+  firstCard = card;
+} else {
+  secondCard = card;
+  lockBoard = true;
+  moves++;
+  updateMoves();
+
+  if (firstCard.dataset.item === secondCard.dataset.item) {
+    matchSound.currentTime = 0;
+    matchSound.play();
+    matchedPairs++;
+
+    if (matchedPairs === totalPairs) {
+      document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
+      document.getElementById('winModal').classList.remove('hidden');
+    }
+
+    resetCards();
+  } else {
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+
+    setTimeout(() => {
+      firstCard.classList.remove('flipped');
+      secondCard.classList.remove('flipped');
+      resetCards();
+    }, 1000);
+  }
+}
