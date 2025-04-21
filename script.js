@@ -62,7 +62,7 @@ function createCard(item) {
     if (lockBoard || card.classList.contains('flipped')) return;
 
     card.classList.add('flipped');
-    flipSound.currentTime = 0;
+    flipSound.currentTime = 0; //play flip sound
     flipSound.play();
 
     if (!firstCard) {
@@ -75,13 +75,13 @@ function createCard(item) {
 
       if (firstCard.dataset.item === secondCard.dataset.item) {
         matchedPairs++;
-        matchSound.currentTime = 0;
+        matchSound.currentTime = 0; // play match sound
          matchSound.play();
         if (matchedPairs === totalPairs) {
           winSound.currentTime = 0;
-          winSound.play(); // 🔊 Play win sound!
+          winSound.play(); // play win sound
 
-          launchConfetti(); // 🎉 Multiburst celebration
+          launchConfetti(); // multiburst celebration
 
             
           document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
@@ -113,7 +113,7 @@ function restartGame() {
   location.reload(); // reload
 }
 
-// Initial stage
+// initial stage
 setDifficulty(8); // Default: Medium
 
 
@@ -156,7 +156,7 @@ if (!firstCard) {
 
 
 
-//confeti
+//confetti
 function launchConfetti() {
   const duration = 2 * 1000;
   const end = Date.now() + duration;
