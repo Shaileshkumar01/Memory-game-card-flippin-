@@ -80,6 +80,10 @@ function createCard(item) {
         if (matchedPairs === totalPairs) {
           winSound.currentTime = 0;
           winSound.play(); // 🔊 Play win sound!
+
+          launchConfetti(); // 🎉 Multiburst celebration
+
+            
           document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
           document.getElementById('winModal').classList.remove('hidden');
         }
@@ -148,4 +152,31 @@ if (!firstCard) {
       resetCards();
     }, 1000);
   }
+}
+
+
+
+//confeti
+function launchConfetti() {
+  const duration = 2 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 10,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 }
+    });
+    confetti({
+      particleCount: 10,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
 }
