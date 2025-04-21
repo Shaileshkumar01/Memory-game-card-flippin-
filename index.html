@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+    <h1>Card Flipping Game</h1>
+    <h2>Test Your Memory</h2>
+
+    <div id="difficulty">
+        <button onclick="setDifficulty(4)">Easy</button>
+        <button onclick="setDifficulty(8)">Medium</button>
+        <button onclick="setDifficulty(12)">Hard</button>
+      </div>
+      
+
+    <div class = "game-board" id = "gameBoard"></div>
+    <p id="moves">Moves: 0</p>
+    <div id="winModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>🎉 You Win!</h2>
+        <p id="finalMoves"></p>
+        <button onclick="restartGame()">Play Again 🔁</button>
+      </div>
+    </div>
+    
+    <div id="winModal" class="modal hidden">
+        <div class="modal-content">
+          <h2>🎉 You Win!</h2>
+          <p id="finalMoves"></p>
+          <button onclick="restartGame()">Play Again 🔁</button>
+        </div>
+      </div>
+      
+    <script src="script.js"></script>
+    <script src="three.r134.min.js"></script>
+<script src="vanta.halo.min.js"></script>
+    <script>
+        VANTA.HALO({
+          el: "#your-element-selector",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00
+        })
+        </script>
+</body>
+</html>
