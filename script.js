@@ -6,6 +6,14 @@ const winSound = document.getElementById('winSound');
 
 
 const cardsArray = ['🍕','🍔','🍟','🌮','🍩','🍿','🥨','🍪'];
+const emojiThemes = {
+  Food: ['🍕','🍔','🍟','🌮','🍩','🍿','🥨','🍪','🍣','🍙','🍧','🍉','🍎','🍇'],
+  Animals: ['🐶','🐱','🐭','🐹','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵'],
+  Nature: ['🌲','🌳','🌴','🌵','🌻','🌼','🌷','🌹','🌺','🍄','🌸','🌞','🌝','🌈']
+};
+
+let currentTheme = 'Food';
+
 let gameGrid = [...cardsArray, ...cardsArray];
 gameGrid.sort(() => 0.5 - Math.random());
 const board = document.getElementById('gameBoard');
@@ -22,23 +30,49 @@ function setDifficulty(pairCount) {
   matchedPairs = 0;
   updateMoves();
 
-  const pool = ['🍕','🍔','🍟','🌮','🍩','🍿','🥨','🍪','🍣','🍙','🍧','🍉','🍎','🍇'];
+  const pool = emojiThemes[currentTheme];
   const selected = pool.slice(0, pairCount);
   gameGrid = [...selected, ...selected];
   gameGrid.sort(() => 0.5 - Math.random());
   totalPairs = pairCount;
 
+
   gameGrid.forEach(item => {
     const card = createCard(item);
     board.appendChild(card);
+    card.classList.add('flipped'); // show all cards temporarily
   });
+
+  // after few seconds hide them
+  setTimeout(() => {
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => card.classList.remove('flipped'));
+    lockBoard = false; // enable gameplay
+  }, 800);
 }
+
+document.getElementById('themeSelect').addEventListener('change', (e) => {
+  currentTheme = e.target.value;
+  setDifficulty(totalPairs); // restart game with new theme
+});
+
+
 
 function updateMoves() {
   document.getElementById('moves').textContent = `Moves: ${moves}`;
+  //stars
+  const starsEl = document.getElementById('stars');
+  if (moves <= 12) {
+    starsEl.textContent = '⭐⭐⭐';
+  } else if (moves <= 20) {
+    starsEl.textContent = '⭐⭐';
+  } else {
+    starsEl.textContent = '⭐';
+  }
 }
 
 function createCard(item) {
+  
   const card = document.createElement('div');
   card.classList.add('card');
   card.dataset.item = item;
@@ -62,7 +96,7 @@ function createCard(item) {
     if (lockBoard || card.classList.contains('flipped')) return;
 
     card.classList.add('flipped');
-    flipSound.currentTime = 0; //play flip sound
+    flipSound.currentTime = 0;
     flipSound.play();
 
     if (!firstCard) {
@@ -75,13 +109,13 @@ function createCard(item) {
 
       if (firstCard.dataset.item === secondCard.dataset.item) {
         matchedPairs++;
-        matchSound.currentTime = 0; // play match sound
+        matchSound.currentTime = 0;
          matchSound.play();
         if (matchedPairs === totalPairs) {
           winSound.currentTime = 0;
-          winSound.play(); // play win sound
+          winSound.play(); // 🔊 Play win sound!
 
-          launchConfetti(); // multiburst celebration
+          launchConfetti(); // 🎉 Multiburst celebration
 
             
           document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
@@ -113,50 +147,16 @@ function restartGame() {
   location.reload(); // reload
 }
 
-// initial stage
+// Initial stage
 setDifficulty(8); // Default: Medium
 
 
 
-// sound effect 
-card.classList.add('flipped');
-flipSound.currentTime = 0;
-flipSound.play();
-
-if (!firstCard) {
-  firstCard = card;
-} else {
-  secondCard = card;
-  lockBoard = true;
-  moves++;
-  updateMoves();
-
-  if (firstCard.dataset.item === secondCard.dataset.item) {
-    matchSound.currentTime = 0;
-    matchSound.play();
-    matchedPairs++;
-
-    if (matchedPairs === totalPairs) {
-      document.getElementById('finalMoves').textContent = `You finished in ${moves} moves!`;
-      document.getElementById('winModal').classList.remove('hidden');
-    }
-
-    resetCards();
-  } else {
-    wrongSound.currentTime = 0;
-    wrongSound.play();
-
-    setTimeout(() => {
-      firstCard.classList.remove('flipped');
-      secondCard.classList.remove('flipped');
-      resetCards();
-    }, 1000);
-  }
-}
 
 
 
-//confetti
+
+//confeti
 function launchConfetti() {
   const duration = 2 * 1000;
   const end = Date.now() + duration;

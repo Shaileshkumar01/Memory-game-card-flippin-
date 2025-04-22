@@ -3,48 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Card Memory Game</title>
     <link rel="stylesheet" href="style.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
- 
-    <h1>Card Flipping Game</h1>
-    <h2>Test Your Memory</h2>
+    <div class="bg-animation"></div>
+
+    <h1 class="glow">🧠 Card Flipping Game</h1>
+    <h2 class="subglow">Test Your Memory</h2>
 
     <div id="difficulty">
         <button onclick="setDifficulty(4)">Easy</button>
         <button onclick="setDifficulty(8)">Medium</button>
         <button onclick="setDifficulty(12)">Hard</button>
-      </div>
-      
-
-    <div class = "game-board" id = "gameBoard"></div>
-    <p id="moves">Moves: 0</p>
-    <div id="winModal" class="modal hidden">
-      <div class="modal-content">
-        <h2>🎉 You Win!</h2>
-        <p id="finalMoves"></p>
-        <button onclick="restartGame()">Play Again 🔁</button>
-      </div>
     </div>
-    
+
+    <label for="themeSelect">Choose Theme:</label>
+    <select id="themeSelect">
+        <option value="Food">🍔 Food</option>
+        <option value="Animals">🐾 Animals</option>
+        <option value="Nature">🌿 Nature</option>
+    </select>
+
+    <div class="game-board" id="gameBoard"></div>
+
+    <div id="movesContainer">
+        <span id="moves">Moves: 0</span>
+        <span id="stars">⭐⭐⭐</span>
+    </div>
+
     <div id="winModal" class="modal hidden">
         <div class="modal-content">
-          <h2>🎉 You Win!</h2>
-          <p id="finalMoves"></p>
-          <button onclick="restartGame()">Play Again 🔁</button>
+            <h2>🎉 You Win!</h2>
+            <p id="finalMoves"></p>
+            <button onclick="restartGame()">Play Again 🔁</button>
         </div>
-      </div>
-    
+    </div>
 
-      <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
-      <audio id="matchSound" src="sounds/match.mp3" preload="auto"></audio>
-      <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
-      <audio id="winSound" src="sounds/win.mp3" preload="auto"></audio>
-  
+    <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
+    <audio id="matchSound" src="sounds/match.mp3" preload="auto"></audio>
+    <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
+    <audio id="winSound" src="sounds/win.mp3" preload="auto"></audio>
+
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 </body>
 </html>
